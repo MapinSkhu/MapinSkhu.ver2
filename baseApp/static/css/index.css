@@ -2441,3 +2441,12 @@ input:focus {outline: none;} /* input선택시 outline 테두리 없애기 */
 	}
 	
 }
+
+@media (prefers-color-scheme: dark) {
+	.menu_body {
+		background: #fff;
+	}
+	.menu_body li {
+		background: #fff;
+	}
+}
