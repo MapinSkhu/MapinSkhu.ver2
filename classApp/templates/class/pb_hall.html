@@ -7,7 +7,7 @@
       <!-- 건물 이름 -->
       <div class="build-title">
         <div></div>
-        <h1>피츠버그홀</h1>
+        <h1>피츠버그홀 & 성미가엘성당</h1>
       </div>
       <!-- QNA -->
       <div class="build-qna">
@@ -118,7 +118,7 @@
     {% if not rooms.is_classroom %}<span class="non-classroom-name">{{ rooms.details }}</span>{% endif %}
   </div>
   <div class="lectureinfo">
-    <h1 class="lectureinfo-title" title="{{ rooms.room }}">{{ rooms.room }}</h1>
+    <h1 class="lectureinfo-title" title="{{ rooms.display_name }}">{{ rooms.display_name }}</h1>
 
     {% if rooms.is_classroom and rooms.room_type == '사용가능' %}
     <div class="lecturecon poss">
@@ -156,7 +156,7 @@
     {% if not rooms.is_classroom %}<span class="non-classroom-name">{{ rooms.details }}</span>{% endif %}
   </div>
   <div class="lectureinfo">
-    <h1 class="lectureinfo-title" title="{{ rooms.room }}">{{ rooms.room }}</h1>
+    <h1 class="lectureinfo-title" title="{{ rooms.display_name }}">{{ rooms.display_name }}</h1>
 
     {% if rooms.is_classroom and rooms.room_type == '사용가능' %}
     <div class="lecturecon poss">
@@ -193,45 +193,7 @@
     {% if not rooms.is_classroom %}<span class="non-classroom-name">{{ rooms.details }}</span>{% endif %}
   </div>
   <div class="lectureinfo">
-    <h1 class="lectureinfo-title" title="{{ rooms.room }}">{{ rooms.room }}</h1>
-
-    {% if rooms.is_classroom and rooms.room_type == '사용가능' %}
-    <div class="lecturecon poss">
-      <span>{{ rooms.room_type }}</span>
-    </div>
-    {% elif rooms.is_classroom and rooms.room_type == '수업중' %}
-    <div class="lecturecon imposs">
-      <span>{{ rooms.room_type }}</span>
-    </div>
-    {% elif rooms.is_classroom %}
-    <div class="lecturecon unopened">
-      <span>{{ rooms.room_type }}</span>
-    </div>
-    {% endif %}
-  </div>
-</a>
-        {% endif %} {% endfor %}
-      </div>
-    </div>
-
-    <div class="build-floor-container">
-      <div class="floorinfo">
-        <h2>F9</h2>
-      </div>
-
-      <div class="lectureinfo-container">
-        {% for rooms in rooms_list %} {% if rooms.floor == 9 %}
-        <a {% if rooms.is_classroom and rooms.room_type != '미개방' %}href="{% url 'classroom' rooms.id %}"{% endif %} data-room="{{ rooms.room }}" class="lectureinfo-box{% if not rooms.is_classroom %} lectureinfo-box--non-classroom{% endif %}{% if rooms.room_type == '미개방' %} lectureinfo-box--unopened{% endif %}{% if rooms.is_image_missing %} lectureinfo-box--missing-image{% endif %}">
-  <div class="lecture-img" data-room="{{ rooms.room }}">
-    <img
-      class="img-src"
-      src="{% if rooms.is_classroom %}{{ rooms.room_image.url }}{% else %}{% static 'images/classroom/nonImage.png' %}{% endif %}"
-      alt="{{rooms.room}}"
-    />
-    {% if not rooms.is_classroom %}<span class="non-classroom-name">{{ rooms.details }}</span>{% endif %}
-  </div>
-  <div class="lectureinfo">
-    <h1 class="lectureinfo-title" title="{{ rooms.room }}">{{ rooms.room }}</h1>
+    <h1 class="lectureinfo-title" title="{{ rooms.display_name }}">{{ rooms.display_name }}</h1>
 
     {% if rooms.is_classroom and rooms.room_type == '사용가능' %}
     <div class="lecturecon poss">
