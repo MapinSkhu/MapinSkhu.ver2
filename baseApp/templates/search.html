@@ -26,10 +26,11 @@
 				<a {% if not room.details %}href="{% url 'classroom' room.id %}"{% endif %} class="lectureinfo-box{% if room.details %} lectureinfo-box--non-classroom{% endif %}">
 					<div class="lecture-img" data-room="{{ room.room }}">
 						<img class="img-src" src="{% if room.details %}{% static 'images/classroom/nonImage.png' %}{% else %}{{ room.room_image.url }}{% endif %}" alt="{{room.room}}" />
+						{% if room.details %}<span class="search-room-location"><span class="search-room-location-text">{{ room.kwan_name }} · {{ room.room }}</span></span>{% endif %}
 						{% if room.details %}<span class="non-classroom-name">{{ room.details }}</span>{% endif %}
 					</div>
 					<div class="lectureinfo">
-						<h1>{{ room.room }}</h1>
+						<h1>{{ room.display_name }}</h1>
 						{% if not room.details and room.room_type == '사용가능' %}
 						<div class="lecturecon poss">
 							<span>{{ room.room_type }}</span>

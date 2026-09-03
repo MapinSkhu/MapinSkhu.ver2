@@ -26,6 +26,8 @@ class RoomSearchTests(TestCase):
         self.assertContains(response, self.room.details)
         self.assertContains(response, "lectureinfo-box--non-classroom")
         self.assertContains(response, "images/classroom/nonImage.png")
+        self.assertContains(response, "새천년관 · B7101")
+        self.assertContains(response, "search-room-location")
         self.assertNotContains(
             response,
             f'href="/classroom/{self.room.id}/"',

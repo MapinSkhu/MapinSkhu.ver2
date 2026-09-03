@@ -143,6 +143,44 @@ input:focus {
   font-size: 1.4rem;
 }
 
+.search-room-location {
+  position: absolute;
+  z-index: 2;
+  top: -2px;
+  left: 50%;
+  isolation: isolate;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  max-width: calc(100% - 1.5rem);
+  padding: 1.1rem 2.8rem;
+  transform: translateX(-50%);
+  color: var(--new-main-color);
+  font-size: clamp(1.2rem, 2vw, 1.65rem);
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  white-space: nowrap;
+  overflow: visible;
+}
+
+.search-room-location-text {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-room-location::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -2px -0.8rem -0.1rem;
+  background: url("../img/search-location-tag.svg?v=9") center / 100% 100% no-repeat;
+}
+
 @media (max-width: 700px) {
   .lectureinfo_s {
     flex-direction: column;
