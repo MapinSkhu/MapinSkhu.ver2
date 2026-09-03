@@ -47,5 +47,15 @@ class Room(models.Model):
     ) 
     room_image = models.ImageField(upload_to='images/room', null=True, blank=True)
     room_type = models.CharField(max_length=100, null = True, blank=True)
+
+    @property
+    def display_name(self):
+        room_names = {
+            '9101': '피츠버그홀',
+            '9301': '성미가엘성당',
+        }
+        name = room_names.get(self.room)
+        return f'{self.room}({name})' if name else self.room
+
     def __str__(self):
         return f'{self.room, self.room_type}'

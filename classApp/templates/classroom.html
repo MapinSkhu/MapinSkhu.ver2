@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %} {{my_room.room}} {% endblock %}
+{% block title %} {{my_room.display_name}} {% endblock %}
 
 
 {% block content %}
@@ -12,7 +12,7 @@
 		</div>
 		<div class="dtlecture-title">
 			<h2>#{{my_room.kwan_name}}</h2>
-			<h1>{{my_room.room}}</h1>
+			<h1>{{my_room.display_name}}</h1>
 		</div>
 		<!--얘도 강의실 이미지 나오면 최종 수정을 거쳐야할듯-->
 		<span class="closebtn" onclick="history.back();">&times;</span>
