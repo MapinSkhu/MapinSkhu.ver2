@@ -208,11 +208,15 @@ def jg_gwan(request):
 # 7관 새천년관
 def scn_gwan(request):
     context = kwan_fn(my_kwan="새천년관")
+    hidden_rooms = BUILDING_PAGE_HIDDEN_ROOMS.get('새천년관', frozenset())
 
     for source_name in BUILDING_PAGE_EXTRA_SOURCES.get('새천년관', ()):
         source_context = kwan_fn(my_kwan=source_name)
         for key in ('rooms_list', 'rooms_access', 'rooms_unaccess'):
             context[key].extend(source_context[key])
+
+    for key in ('rooms_list', 'rooms_access', 'rooms_unaccess'):
+        context[key] = [room for room in context[key] if room.room not in hidden_rooms]
 
     context['rooms_list'].sort(key=lambda room: (room.floor, room.room))
 
