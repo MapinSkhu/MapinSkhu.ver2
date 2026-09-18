@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.core.validators import MaxValueValidator, MinValueValidator
+from .room_overrides import ROOM_DISPLAY_NAMES
 
 
 class Classes(models.Model):
@@ -50,11 +51,7 @@ class Room(models.Model):
 
     @property
     def display_name(self):
-        room_names = {
-            '9101': '피츠버그홀',
-            '9301': '성미가엘성당',
-        }
-        name = room_names.get(self.room)
+        name = ROOM_DISPLAY_NAMES.get(self.room)
         return f'{self.room}({name})' if name else self.room
 
     def __str__(self):
