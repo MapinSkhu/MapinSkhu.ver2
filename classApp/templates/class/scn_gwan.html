@@ -103,6 +103,26 @@
   <div class="build-lectureinfo-wrap" id="all_tog">
     <div class="build-floor-container">
       <div class="floorinfo">
+        <h2>B2</h2>
+      </div>
+
+      <div class="lectureinfo-container">
+        {% for rooms in rooms_list %} {% if rooms.basement_level == 2 %}
+        <a data-room="{{ rooms.room }}" class="lectureinfo-box lectureinfo-box--non-classroom{% if rooms.is_image_missing %} lectureinfo-box--missing-image{% endif %}">
+          <div class="lecture-img" data-room="{{ rooms.room }}">
+            <img class="img-src" src="{{ rooms.card_image_url }}" alt="{{ rooms.details }}" />
+            <span class="non-classroom-name">{{ rooms.details }}</span>
+          </div>
+          <div class="lectureinfo">
+            <h1 class="lectureinfo-title" title="{{ rooms.room }}">{{ rooms.room }}</h1>
+          </div>
+        </a>
+        {% endif %} {% endfor %}
+      </div>
+    </div>
+
+    <div class="build-floor-container">
+      <div class="floorinfo">
         <h2>B1</h2>
       </div>
 

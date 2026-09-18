@@ -218,6 +218,23 @@ def scn_gwan(request):
     for key in ('rooms_list', 'rooms_access', 'rooms_unaccess'):
         context[key] = [room for room in context[key] if room.room not in hidden_rooms]
 
+    for virtual_room in VIRTUAL_BUILDING_ROOMS.get('새천년관', ()):
+        virtual_image = get_static_room_image(virtual_room['room'])
+        context['rooms_list'].append(SimpleNamespace(
+            id=None,
+            kwan_name='새천년관',
+            floor=-virtual_room['basement_level'],
+            is_basement=True,
+            is_classroom=False,
+            has_class=False,
+            room_type=None,
+            is_image_missing=not virtual_image,
+            card_image_url=(
+                virtual_image or static('images/classroom/nonImage.png')
+            ),
+            **virtual_room,
+        ))
+
     context['rooms_list'].sort(key=lambda room: (room.floor, room.room))
 
     return render(request, 'class/scn_gwan.html', context)
