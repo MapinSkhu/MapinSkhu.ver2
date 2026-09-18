@@ -112,7 +112,7 @@
   <div class="lecture-img" data-room="{{ rooms.room }}">
     <img
       class="img-src"
-      src="{% if rooms.is_classroom %}{{ rooms.room_image.url }}{% else %}{% static 'images/classroom/nonImage.png' %}{% endif %}"
+              src="{{ rooms.card_image_url }}"
       alt="{{rooms.room}}"
     />
     {% if not rooms.is_classroom %}<span class="non-classroom-name">{{ rooms.details }}</span>{% endif %}
@@ -150,7 +150,7 @@
   <div class="lecture-img" data-room="{{ rooms.room }}">
     <img
       class="img-src"
-      src="{% if rooms.is_classroom %}{{ rooms.room_image.url }}{% else %}{% static 'images/classroom/nonImage.png' %}{% endif %}"
+              src="{{ rooms.card_image_url }}"
       alt="{{rooms.room}}"
     />
     {% if not rooms.is_classroom %}<span class="non-classroom-name">{{ rooms.details }}</span>{% endif %}
@@ -187,7 +187,7 @@
   <div class="lecture-img" data-room="{{ rooms.room }}">
     <img
       class="img-src"
-      src="{% if rooms.is_classroom %}{{ rooms.room_image.url }}{% else %}{% static 'images/classroom/nonImage.png' %}{% endif %}"
+              src="{{ rooms.card_image_url }}"
       alt="{{rooms.room}}"
     />
     {% if not rooms.is_classroom %}<span class="non-classroom-name">{{ rooms.details }}</span>{% endif %}

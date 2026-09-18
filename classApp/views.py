@@ -3,8 +3,34 @@ from django.conf import settings
 from .models import Classes, Room
 from django.utils import timezone
 from django.db.models import Q, Case, When
+from django.contrib.staticfiles import finders
+from django.templatetags.static import static
+from pathlib import Path
+from types import SimpleNamespace
+from .room_overrides import (
+    BUILDING_PAGE_EXTRA_SOURCES,
+    BUILDING_PAGE_HIDDEN_ROOMS,
+    CLASSROOM_CLASSIFICATION_OVERRIDES,
+    MGELL_UPPER_FLOOR_DESCRIPTION,
+    MGELL_UPPER_VISIBLE_ROOMS,
+    SHARED_IMAGE_ROOMS,
+    VIRTUAL_BUILDING_ROOMS,
+)
 
 days = ['월', '화', '수', '목', '금', '토', '일']
+
+
+def get_static_room_image(room_number):
+    """호수 이름으로 추가된 정적 이미지를 찾아 URL을 반환한다."""
+    normalized_room = room_number.strip().lower()
+    normalized_room = SHARED_IMAGE_ROOMS.get(normalized_room, normalized_room)
+    for extension in ('jpg', 'jpeg', 'png'):
+        image_path = f'images/classroom/{normalized_room}.{extension}'
+        found_image = finders.find(image_path)
+        if found_image:
+            modified_time = Path(found_image).stat().st_mtime_ns
+            return f'{static(image_path)}?v={modified_time}'
+    return None
 
 # 요일별 강의 쿼리셋으로 추출 후 리스트로 묶기
 week_classes = [] # 인덱스 (월:0 ~ 금:4)
@@ -23,6 +49,14 @@ def classroom_fn(my_room):#단순 room 문자열 아닌 room 객체 받기
     -> 템플릿에서 오늘 요일 시간표 먼저 보이기    
     3. 해당 강의실에 강의 없는 경우 'empty' 전달
     '''
+
+    static_room_image = get_static_room_image(my_room.room)
+    if static_room_image:
+        my_room.detail_image_url = static_room_image
+    elif my_room.room_image.name:
+        my_room.detail_image_url = my_room.room_image.url
+    else:
+        my_room.detail_image_url = static('images/classroom/imagewait.png')
 
     now = timezone.now() #형식: yyyy-mm-dd hh:mm:ss.ssssss
     now_weekday = now.weekday() #0~6
@@ -91,15 +125,39 @@ def kwan_fn(my_kwan):
             and not r.details.strip()
             and '(' not in r.room
         )
-        is_im_gwan_fifth_floor_classroom = (
-            r.kwan_name == "일만관"
-            and r.floor == 5
-            and "(강의실)" in r.room
+        classification_override = CLASSROOM_CLASSIFICATION_OVERRIDES.get(r.kwan_name)
+        is_classroom_override = bool(
+            classification_override
+            and r.floor == classification_override['floor']
+            and classification_override['room_name_contains'] in r.room
         )
         r.is_classroom = (
-            is_numbered_classroom or is_im_gwan_fifth_floor_classroom
+            is_numbered_classroom or is_classroom_override
         )
-        r.is_image_missing = not r.room_image.name or r.room_image.name.endswith('imagewait.png')
+        normalized_room = r.room.strip().upper()
+        r.is_basement = (
+            normalized_room.startswith('B')
+            or (len(normalized_room) > 1 and normalized_room[1] == 'B')
+        )
+        r.basement_level = 1 if r.is_basement else None
+        static_room_image = get_static_room_image(r.room)
+        has_uploaded_image = bool(
+            r.room_image.name
+            and not r.room_image.name.endswith('imagewait.png')
+        )
+        r.is_image_missing = not static_room_image and not has_uploaded_image
+        if static_room_image:
+            r.card_image_url = static_room_image
+        elif has_uploaded_image:
+            r.card_image_url = r.room_image.url
+        elif r.is_classroom:
+            r.card_image_url = (
+                r.room_image.url
+                if r.room_image.name
+                else static('images/classroom/imagewait.png')
+            )
+        else:
+            r.card_image_url = static('images/classroom/nonImage.png')
         r.room_type = "미개방" if r.is_classroom and not r.has_class else "사용가능"
 
         for c in classes:
