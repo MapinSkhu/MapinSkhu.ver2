@@ -256,6 +256,7 @@ def mgell_gwan(request):
     context = kwan_fn(my_kwan="미가엘관")
     for room in context['rooms_list']:
         room.show_in_upper_floor = room.room in MGELL_UPPER_VISIBLE_ROOMS
+    context['upper_floor_description'] = MGELL_UPPER_FLOOR_DESCRIPTION
     return render(request, 'class/mgell_gwan.html', context)
 
 # 12관 성베드로학교

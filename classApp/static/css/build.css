@@ -557,10 +557,25 @@ a {
   color: var(--new-main-color);
 }
 
+.floorinfo--with-description {
+  display: flex;
+  align-items: center;
+  gap: 3.25rem;
+}
+
+.floorinfo--with-description p {
+  margin: 0;
+  color: #999ba3;
+  font-size: clamp(1.45rem, 1.75vw, 2rem);
+  font-weight: 400;
+  line-height: 1.4;
+}
+
 .lectureinfo-container {
   --card-gap: 10px;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: start;
   gap: var(--card-gap);
   background: #eee;
   padding: 30px;

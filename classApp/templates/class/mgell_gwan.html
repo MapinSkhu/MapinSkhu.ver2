@@ -250,8 +250,9 @@
     </div>
 
     <div class="build-floor-container">
-      <div class="floorinfo">
+      <div class="floorinfo floorinfo--with-description">
         <h2>F5 ~ F8</h2>
+        <p>{{ upper_floor_description }}</p>
       </div>
       <div class="lectureinfo-container">
         {% for rooms in rooms_list %} {% if rooms.show_in_upper_floor %}
