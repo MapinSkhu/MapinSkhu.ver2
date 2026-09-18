@@ -103,11 +103,49 @@
   <div class="build-lectureinfo-wrap" id="all_tog">
     <div class="build-floor-container">
       <div class="floorinfo">
+        <h2>B1</h2>
+      </div>
+
+      <div class="lectureinfo-container">
+        {% for rooms in rooms_list %} {% if rooms.basement_level == 1 %}
+        <a {% if rooms.is_classroom and rooms.room_type != '미개방' %}href="{% url 'classroom' rooms.id %}"{% endif %} data-room="{{ rooms.room }}" class="lectureinfo-box{% if not rooms.is_classroom %} lectureinfo-box--non-classroom{% endif %}{% if rooms.room_type == '미개방' %} lectureinfo-box--unopened{% endif %}{% if rooms.is_image_missing %} lectureinfo-box--missing-image{% endif %}">
+          <div class="lecture-img" data-room="{{ rooms.room }}">
+            <img
+              class="img-src"
+              src="{{ rooms.card_image_url }}"
+              alt="{{rooms.room}}"
+            />
+            {% if not rooms.is_classroom %}<span class="non-classroom-name">{{ rooms.details }}</span>{% endif %}
+          </div>
+          <div class="lectureinfo">
+            <h1 class="lectureinfo-title" title="{{ rooms.room }}">{{ rooms.room }}</h1>
+
+            {% if rooms.is_classroom and rooms.room_type == '사용가능' %}
+            <div class="lecturecon poss">
+              <span>{{ rooms.room_type }}</span>
+            </div>
+            {% elif rooms.is_classroom and rooms.room_type == '수업중' %}
+            <div class="lecturecon imposs">
+              <span>{{ rooms.room_type }}</span>
+            </div>
+            {% elif rooms.is_classroom %}
+            <div class="lecturecon unopened">
+              <span>{{ rooms.room_type }}</span>
+            </div>
+            {% endif %}
+          </div>
+        </a>
+        {% endif %} {% endfor %}
+      </div>
+    </div>
+
+    <div class="build-floor-container">
+      <div class="floorinfo">
         <h2>F1</h2>
       </div>
 
       <div class="lectureinfo-container">
-        {% for rooms in rooms_list %} {% if rooms.floor == 1 %}
+        {% for rooms in rooms_list %} {% if rooms.floor == 1 and not rooms.is_basement %}
         <a {% if rooms.is_classroom and rooms.room_type != '미개방' %}href="{% url 'classroom' rooms.id %}"{% endif %} data-room="{{ rooms.room }}" class="lectureinfo-box{% if not rooms.is_classroom %} lectureinfo-box--non-classroom{% endif %}{% if rooms.room_type == '미개방' %} lectureinfo-box--unopened{% endif %}{% if rooms.is_image_missing %} lectureinfo-box--missing-image{% endif %}">
   <div class="lecture-img" data-room="{{ rooms.room }}">
     <img
