@@ -253,7 +253,10 @@ def gdin_gwan(request):
 
 # 11관 미가엘관
 def mgell_gwan(request):
-    return render(request, 'class/mgell_gwan.html', kwan_fn(my_kwan = "미가엘관"))
+    context = kwan_fn(my_kwan="미가엘관")
+    for room in context['rooms_list']:
+        room.show_in_upper_floor = room.room in MGELL_UPPER_VISIBLE_ROOMS
+    return render(request, 'class/mgell_gwan.html', context)
 
 # 12관 성베드로학교
 def sbdr_school(request):
