@@ -252,9 +252,14 @@ table {
   --build-color: #b9dc9d; /* 건물 */
   --subnav-color: #ebecdc; /* 방위표 주변 네브 */
 
-  /* 새로운 컬러 */
+  /* 첫 번째 새로운 컬러
   --new-sub-color: #bae688;
   --new-main-color: #218b21;
+  */
+
+  /* 두 번째 새로운 컬러 */
+  --new-sub-color: #D8FDD1;
+  --new-main-color: #3CB371;
   /* 정의된 색상 사용하고 싶으면 var(변수명)으로 작성하기 */
   /* ex ) background-color: var(--nav-color) */
 }
@@ -274,6 +279,7 @@ a {
 .nav {
   top: 0;
   display: flex;
+  align-items: center;
   padding-right: 1vw;
   /* padding: 0 1vw 0 1vw; */
   background-color: #fff;
@@ -389,17 +395,23 @@ a {
   background-color: rgba(0, 0, 0, 0.4);
 }
 .nav2 {
-  width: 100%;
+  display: flex;
+  align-items: center;
+  width: auto;
+  height: 60px;
+  margin-left: 16px;
 }
 .nav2 a {
-  display: block;
-  width: 220px;
+  display: flex;
+  align-items: center;
+  width: 170px;
   height: 60px;
 }
 .nav-img {
-  position: absolute;
-  width: 220px;
-  top: 5%;
+  position: static;
+  display: block;
+  width: 170px;
+  height: auto;
 }
 
 /* ----------------여기서부터는 build base ---------------- */
@@ -415,7 +427,7 @@ a {
   display: none;
   height: 5rem;
   width: 10px;
-  background: var(--new-sub-color);
+  background: #BFEFA7;
 }
 .build-title h1 {
   font-size: 5rem;
@@ -498,7 +510,7 @@ a {
   border-top-left-radius: 10px;
   font-size: 1.5rem;
   overflow: hidden;
-  background: #eee;
+  background: #F0F0F4;
 }
 .build-qna-item label {
   display: flex;
@@ -516,7 +528,7 @@ a {
 }
 
 .build-qna-item > input[type="radio"]:checked + label {
-  background: #d5f4b4;
+  background: #D8FDD1;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
 }
@@ -557,13 +569,50 @@ a {
   color: var(--new-main-color);
 }
 
+.floorinfo--with-description {
+  display: flex;
+  align-items: center;
+  gap: 3.25rem;
+}
+
+.floorinfo--with-description p {
+  margin: 0;
+  color: #999ba3;
+  font-size: clamp(1.45rem, 1.75vw, 2rem);
+  font-weight: 400;
+  line-height: 1.4;
+}
+
 .lectureinfo-container {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  background: #eee;
+  background: #F0F0F4;
   padding: 30px;
   border-top: 5px var(--new-main-color) solid;
+}
+
+.lectureinfo-container--line-only {
+  display: block;
+  min-height: 24px;
+  background: #F0F0F4;
+  padding: 0;
+}
+
+@media (min-width: 480px) {
+  .build-lectureinfo-wrap {
+    gap: 70px;
+  }
+
+  .lectureinfo-container--line-only {
+    min-height: 50px;
+  }
+}
+
+@media (min-width: 1066px) {
+  .lectureinfo-container--line-only {
+    min-height: 60px;
+  }
 }
 
 .lectureinfo-box {
@@ -613,23 +662,36 @@ a {
   justify-content: space-between;
 }
 .lecturecon {
+  box-sizing: border-box;
   width: 60px;
   height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   border-radius: 4px;
   color: #fff;
   margin-right: 20px;
 }
+.lecturecon span {
+  display: inline-block;
+  transform: scale(1.12);
+  transform-origin: center;
+}
 .imposs {
-  background-color: #ee3e54;
+  background-color: #FF5B6B;
+  border: 1px solid #FF5B6B;
 }
 .poss {
-  background-color: var(--new-sub-color);
+  background-color: #C5F1C9;
+  border: 1px solid #ABE99F;
   color: #000;
+}
+.unopened {
+  background-color: #E6E6EB;
+  border: 1px solid #CBCCD4;
+  color: #666;
 }
 
 /* 사용 가능한 강의실만 보기 */
@@ -667,7 +729,7 @@ a {
   left: 0;
   right: 0;
   bottom: 0;
-  background: #eee;
+  background: #F0F0F4;
   transition: 0.4s;
   border-radius: 20px;
 }
@@ -683,10 +745,10 @@ a {
   border-radius: 20px;
 }
 .switchInput:checked + .toggleSwitch_ball {
-  background: var(--new-sub-color);
+  background: #C5F1C9;
 }
 .switchInput:focus + .toggleSwitch_ball {
-  box-shadow: 0 0 1px #eee;
+  box-shadow: 0 0 1px #F0F0F4;
 }
 .switchInput:checked + .toggleSwitch_ball:before {
   transform: translateX(26px);
@@ -694,13 +756,24 @@ a {
 
 /* 메뉴사이드바 */
 .menu_img {
-  top: 1%;
-  left: 13%;
-  width: 180px;
+  position: static;
+  width: 170px;
+  height: auto;
 }
 .menu_header {
-  height: 8%;
-  display: block;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 60px;
+}
+.menu_header > a {
+  display: flex;
+  align-items: center;
+  width: 170px;
+  height: 60px;
+  margin-left: 45px;
 }
 .menu_body {
   margin: 10%;
@@ -1081,13 +1154,13 @@ textarea {
 }
 
 .active_version .toggle-circle {
-  background: #218b21;
+  background: #3cb371;
 }
 .active_version .toggle-arrow {
   transform: rotate(90deg);
 }
 .active_version .big_version {
-  color: #218b21;
+  color: #3cb371;
 }
 
 .version-items {
@@ -1544,7 +1617,7 @@ textarea {
 .closebtn {
   position: absolute;
   top: 10px;
-  right: 10px;
+  right: 1FF5B6B
   color: rgb(228, 228, 228);
   font-size: 7rem;
   font-weight: bold;
@@ -1579,7 +1652,7 @@ textarea {
   position: absolute;
   top: 70%;
   left: 50%;
-  color: #000;
+  color: #FF5B6B
   text-align: center;
   transform: translate(-50%, -50%);
 }
@@ -1661,7 +1734,7 @@ textarea {
 .detail-radio-container {
   width: 100%;
   box-shadow: 0px -5px 7px 0px rgba(0, 0, 0, 0.08);
-  border: 10px #d5f4b4 solid;
+  border: 10px #D8FDD1 solid;
   border-radius: 0px 10px 10px 10px;
   box-sizing: border-box;
   z-index: 1;
@@ -2116,7 +2189,7 @@ textarea {
     font-size: 1.2rem !important;
   }
   .developer__profile h2 {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
   }
   .dev__social a {
     font-size: 0.5rem;
@@ -2200,7 +2273,7 @@ textarea {
     width: 80%;
     padding: 1rem;
     gap: 1rem;
-  }
+  }FF5B6B
   .detail-status p {
     font-size: 1.2rem;
   }
@@ -2272,6 +2345,9 @@ textarea {
   }
   .lectureinfo-container h1 {
     font-size: 15px !important;
+  }
+  .non-classroom-name {
+    font-size: 1.05rem;
   }
   .toggleSwitch_wrap span {
     font-size: 15px;

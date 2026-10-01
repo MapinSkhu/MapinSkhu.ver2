@@ -22,7 +22,8 @@
   font-family: "Noto Sans KR", sans-serif;
   font-style: normal;
   font-weight: 100;
-  src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff2)
+  src:
+    url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff2)
       format("woff2"),
     url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff)
       format("woff"),
@@ -34,7 +35,8 @@
   font-family: "Noto Sans KR", sans-serif;
   font-style: normal;
   font-weight: 300;
-  src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff2)
+  src:
+    url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff2)
       format("woff2"),
     url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff)
       format("woff"),
@@ -46,7 +48,8 @@
   font-family: "Noto Sans KR", sans-serif;
   font-style: normal;
   font-weight: 400;
-  src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff2)
+  src:
+    url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff2)
       format("woff2"),
     url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff)
       format("woff"),
@@ -58,7 +61,8 @@
   font-family: "Noto Sans KR", sans-serif;
   font-style: normal;
   font-weight: 500;
-  src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff2)
+  src:
+    url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff2)
       format("woff2"),
     url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff)
       format("woff"),
@@ -70,7 +74,8 @@
   font-family: "Noto Sans KR", sans-serif;
   font-style: normal;
   font-weight: 700;
-  src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff2)
+  src:
+    url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff2)
       format("woff2"),
     url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff)
       format("woff"),
@@ -82,7 +87,8 @@
   font-family: "Noto Sans KR", sans-serif;
   font-style: normal;
   font-weight: 900;
-  src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff2)
+  src:
+    url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff2)
       format("woff2"),
     url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff)
       format("woff"),
@@ -94,7 +100,8 @@
   font-family: "Noto Sans KR", serif;
   font-style: normal;
   font-weight: 400;
-  src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff2)
+  src:
+    url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff2)
       format("woff2"),
     url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff)
       format("woff"),
@@ -258,9 +265,14 @@ a {
   --build-color: #b9dc9d; /* 건물 */
   --subnav-color: #ebecdc; /* 방위표 주변 네브 */
 
-  /* 새로운 컬러 */
+  /* 첫 번째 새로운 컬러
   --new-sub-color: #bae688;
   --new-main-color: #218b21;
+  */
+
+  /* 두 번째 새로운 컬러 */
+  --new-sub-color: #d8fdd1;
+  --new-main-color: #3cb371;
   /* 정의된 색상 사용하고 싶으면 var(변수명)으로 작성하기 */
   /* ex ) background-color: var(--nav-color) */
 }
@@ -320,7 +332,9 @@ a {
 .line-split::before,
 .line-split::after {
   width: 10px;
-  transition: transform 0.5s, opacity 0.5s;
+  transition:
+    transform 0.5s,
+    opacity 0.5s;
 }
 .line-split::after {
   transform: translateX(10px);
@@ -380,7 +394,7 @@ a {
   left: 32px;
   display: flex;
   padding-right: 1vw;
-  background-color: var(#eee);
+  background-color: var(#f0f0f4);
   position: fixed;
   height: 60px;
   width: 100%;
@@ -563,8 +577,8 @@ body {
 .main_input {
   width: 100%;
   height: 4.5vw;
-  background-color: #d3f0b1;
-  box-shadow: #218b215e 0px 4px 12px;
+  background-color: #bfefa7;
+  box-shadow: #3cb3715e 0px 4px 12px;
   border: 0;
   font-family: "SuncheonR";
   font-size: 1.8vw;
@@ -574,7 +588,7 @@ body {
 }
 
 input:-webkit-autofill {
-  box-shadow: 0 0 0 1000px #d3f0b1 inset;
+  box-shadow: 0 0 0 1000px #bfefa7 inset;
 }
 
 /* 검색 유도 문구 */
@@ -799,7 +813,7 @@ input:focus {
   align-items: center;
   border-radius: 5px;
   border: 1px solid #97e49f;
-  background: #c5f1c9;
+  background: #d8fdd1;
   cursor: pointer;
 }
 
@@ -2588,7 +2602,7 @@ input:focus {
     align-items: center;
     border-radius: 5px;
     border: 1px solid #97e49f;
-    background: #c5f1c9;
+    background: #d8fdd1;
     cursor: pointer;
   }
 
