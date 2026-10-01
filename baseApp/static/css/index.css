@@ -22,7 +22,8 @@
   font-family: "Noto Sans KR", sans-serif;
   font-style: normal;
   font-weight: 100;
-  src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff2)
+  src:
+    url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff2)
       format("woff2"),
     url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff)
       format("woff"),
@@ -34,7 +35,8 @@
   font-family: "Noto Sans KR", sans-serif;
   font-style: normal;
   font-weight: 300;
-  src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff2)
+  src:
+    url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff2)
       format("woff2"),
     url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff)
       format("woff"),
@@ -46,7 +48,8 @@
   font-family: "Noto Sans KR", sans-serif;
   font-style: normal;
   font-weight: 400;
-  src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff2)
+  src:
+    url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff2)
       format("woff2"),
     url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff)
       format("woff"),
@@ -58,7 +61,8 @@
   font-family: "Noto Sans KR", sans-serif;
   font-style: normal;
   font-weight: 500;
-  src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff2)
+  src:
+    url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff2)
       format("woff2"),
     url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff)
       format("woff"),
@@ -70,7 +74,8 @@
   font-family: "Noto Sans KR", sans-serif;
   font-style: normal;
   font-weight: 700;
-  src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff2)
+  src:
+    url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff2)
       format("woff2"),
     url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff)
       format("woff"),
@@ -82,7 +87,8 @@
   font-family: "Noto Sans KR", sans-serif;
   font-style: normal;
   font-weight: 900;
-  src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff2)
+  src:
+    url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff2)
       format("woff2"),
     url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff)
       format("woff"),
@@ -94,7 +100,8 @@
   font-family: "Noto Sans KR", serif;
   font-style: normal;
   font-weight: 400;
-  src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff2)
+  src:
+    url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff2)
       format("woff2"),
     url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff)
       format("woff"),
@@ -258,9 +265,14 @@ a {
   --build-color: #b9dc9d; /* 건물 */
   --subnav-color: #ebecdc; /* 방위표 주변 네브 */
 
-  /* 새로운 컬러 */
+  /* 첫 번째 새로운 컬러
   --new-sub-color: #bae688;
   --new-main-color: #218b21;
+  */
+
+  /* 두 번째 새로운 컬러 */
+  --new-sub-color: #eeffbc;
+  --new-main-color: #3cb371;
   /* 정의된 색상 사용하고 싶으면 var(변수명)으로 작성하기 */
   /* ex ) background-color: var(--nav-color) */
 }
@@ -272,6 +284,8 @@ a {
   display: inline-flex;
   align-items: center;
   position: fixed;
+  width: 40px;
+  height: 60px;
   z-index: 3;
   top: 0;
   left: 0;
@@ -281,8 +295,8 @@ a {
   z-index: 5;
 }
 .hbmenu {
-  top: 17px;
-  left: 7px;
+  top: 0;
+  left: 0;
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -320,7 +334,9 @@ a {
 .line-split::before,
 .line-split::after {
   width: 10px;
-  transition: transform 0.5s, opacity 0.5s;
+  transition:
+    transform 0.5s,
+    opacity 0.5s;
 }
 .line-split::after {
   transform: translateX(10px);
@@ -376,37 +392,50 @@ a {
 }
 
 .nav2 {
-  top: 9px;
-  left: 32px;
+  top: 0;
+  left: 40px;
   display: flex;
+  align-items: center;
+  margin-left: 16px;
   padding-right: 1vw;
-  background-color: var(#eee);
+  background-color: var(#f0f0f4);
   position: fixed;
   height: 60px;
-  width: 100%;
+  width: auto;
   z-index: 1;
 }
 .nav2 a {
-  display: block;
-  width: 220px;
+  display: flex;
+  align-items: center;
+  width: 200px;
   height: 60px;
 }
 .nav-img {
-  width: 220px;
+  display: block;
+  width: 200px;
+  height: auto;
 }
 
 /* 메뉴사이드바 */
 .nav-toggle {
-  position: absolute;
-  top: 14px;
-  left: 40px;
+  display: flex;
+  align-items: center;
+  width: 170px;
+  height: 60px;
+  margin-left: 45px;
 }
 .nav-img-toggle {
-  width: 180px;
+  display: block;
+  width: 170px;
+  height: auto;
 }
 .menu_header {
-  height: 8%;
-  display: block;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 60px;
 }
 .menu_body {
   margin: 10%;
@@ -483,6 +512,16 @@ a {
 }
 .menu_body span:nth-child(1) {
   width: 30%;
+  flex: 0 0 30%;
+}
+.menu_body span:nth-child(2) {
+  min-width: 0;
+  flex: 1 1 auto;
+  padding-right: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  white-space: nowrap;
 }
 .menu_footer {
   display: block;
@@ -563,8 +602,8 @@ body {
 .main_input {
   width: 100%;
   height: 4.5vw;
-  background-color: #d3f0b1;
-  box-shadow: #218b215e 0px 4px 12px;
+  background-color: #bfefa7;
+  box-shadow: #3cb3715e 0px 4px 12px;
   border: 0;
   font-family: "SuncheonR";
   font-size: 1.8vw;
@@ -574,7 +613,7 @@ body {
 }
 
 input:-webkit-autofill {
-  box-shadow: 0 0 0 1000px #d3f0b1 inset;
+  box-shadow: 0 0 0 1000px #bfefa7 inset;
 }
 
 /* 검색 유도 문구 */
@@ -606,7 +645,8 @@ input:focus {
   fill: var(--new-main-color);
   position: absolute;
   width: 21px;
-  top: 27px;
+  top: 50%;
+  transform: translateY(-50%);
   right: 25px;
   z-index: 999;
   cursor: pointer;
@@ -615,6 +655,21 @@ input:focus {
 @media (max-width: 700px) {
   #nav_search {
     right: 30px;
+  }
+}
+
+@media (max-width: 1065px) {
+  #menu__box {
+    width: min(400px, 100vw);
+  }
+
+  .nav-toggle {
+    width: 200px;
+    margin-left: 56px;
+  }
+
+  .nav-img-toggle {
+    width: 200px;
   }
 }
 
@@ -799,7 +854,7 @@ input:focus {
   align-items: center;
   border-radius: 5px;
   border: 1px solid #97e49f;
-  background: #c5f1c9;
+  background: #d8fdd1;
   cursor: pointer;
 }
 
@@ -936,6 +991,14 @@ input:focus {
   animation-name: smallerb_1;
   animation-duration: 1s;
   animation-iteration-count: 1;
+}
+
+.qwan-button-label {
+  display: inline-block;
+  max-width: none;
+  line-height: 1.12;
+  text-align: center;
+  white-space: nowrap;
 }
 
 /* 승연관 모바일 + 작은 PC창 모달 */
@@ -2588,7 +2651,7 @@ input:focus {
     align-items: center;
     border-radius: 5px;
     border: 1px solid #97e49f;
-    background: #c5f1c9;
+    background: #d8fdd1;
     cursor: pointer;
   }
 
@@ -2735,17 +2798,6 @@ input:focus {
     position: relative;
     display: flex;
     justify-content: center;
-  }
-
-  .nav2 {
-    top: 12px;
-    left: 33px;
-  }
-  .nav2 a {
-    width: 195px;
-  }
-  .nav-img {
-    width: 195px;
   }
 
   .leo_class img {
