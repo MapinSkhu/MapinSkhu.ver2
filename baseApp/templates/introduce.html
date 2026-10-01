@@ -103,7 +103,7 @@
 								</p>
 							</div>
 							<button type="button" class="item-button" onclick="collapse(this);">
-								<p class="small_version">0.4.0 [2022.06.05]</p>
+								<p class="small_version">0.4.0 [2022.06]</p>
 							</button>
 							<div class="content">
 								<p>
@@ -194,7 +194,7 @@
 								</p>
 							</div>
 							<button type="button" class="item-button" onclick="collapse(this);">
-								<p class="small_version">1.8.0 [2022.10.31]</p>
+								<p class="small_version">1.8.0 [2022.10]</p>
 							</button>
 							<div class="content">
 								<p>
@@ -216,7 +216,7 @@
 						</div>
 						<p class="big_version">2.0.0 [MapinSkhu.ver2]</p>
 					</div>
-					<div class="before-final-line" style="z-index: 990;">
+					<div class="left-line" style="z-index: 990;">
 						<div class="version-items">
 							<button type="button" class="item-button" onclick="collapse(this);">
 								<p class="small_version">2.1.0</p>
@@ -293,7 +293,7 @@
 								</p>
 							</div>
 							<button type="button" class="item-button" onclick="collapse(this);">
-								<p class="small_version">2.9.0 [2024.02.23]</p>
+								<p class="small_version">2.9.0 [2024.02]</p>
 							</button>
 							<div class="content">
 								<p>
@@ -304,7 +304,7 @@
 								</p>
 							</div>
 							<button type="button" class="item-button" onclick="collapse(this);">
-								<p class="small_version">2.10.0 [2024.03.01]</p>
+								<p class="small_version">2.10.0 [2024.03]</p>
 							</button>
 							<div class="content">
 								<p>
@@ -312,21 +312,60 @@
 									2.10.2 &nbsp;&nbsp;띄어쓰기 제외 기능 추가<br />
 									2.10.3 &nbsp;&nbsp;소개페이지 연혁 구현<br />
 									2.10.4 &nbsp;&nbsp;관 페이지 디자인 리뉴얼 적용<br />
+									2.10.5 &nbsp;&nbsp;UX 리서치 툴 도입<br />
+									2.10.6 &nbsp;&nbsp;사용자 설문 유도 창 구현<br />
+									2.10.7 &nbsp;&nbsp;검색창 및 검색 결과 화면 디자인 개선<br />
+									2.10.8 &nbsp;&nbsp;모바일 메인 화면 디자인 및 배치 개선<br />
+									2.10.9 &nbsp;&nbsp;삼성 인터넷 및 Safari 모바일 화면 안정화<br />
 								</p>
 							</div>
 							<button type="button" class="item-button" onclick="collapse(this);">
-								<p class="small_version">2.11.0 [2024.03.04]</p>
+								<p class="small_version">2.11.0 [2024.08]</p>
 							</button>
 							<div class="content">
 								<p>
-									2.11.1 &nbsp;&nbsp;UX 리서치 툴 도입<br />
-									2.11.2 &nbsp;&nbsp;사용자 설문 유도 창 구현<br />
+									2.11.1 &nbsp;&nbsp;24년도 2학기 강의 데이터베이스 업데이트<br />
+									2.11.2 &nbsp;&nbsp;메인 화면 개선 및 설문 유도 창 비활성화<br />
+								</p>
+							</div>
+							<button type="button" class="item-button" onclick="collapse(this);">
+								<p class="small_version">2.12.0 [2025.02]</p>
+							</button>
+							<div class="content">
+								<p>
+									2.12.1 &nbsp;&nbsp;25년도 1학기 강의 데이터베이스 업데이트<br />
+									2.12.2 &nbsp;&nbsp;강의 및 강의실 데이터 관리 구조 개선<br />
+									2.12.3 &nbsp;&nbsp;검색 기능 및 검색 결과 화면 개선<br />
+								</p>
+							</div>
+							<button type="button" class="item-button" onclick="collapse(this);">
+								<p class="small_version">2.13.0 [2025.08]</p>
+							</button>
+							<div class="content">
+								<p>
+									2.13.1 &nbsp;&nbsp;25년도 2학기 강의 데이터베이스 업데이트<br />
+								</p>
+							</div>
+							<button type="button" class="item-button" onclick="collapse(this);">
+								<p class="small_version">2.14.0 [2025.09]</p>
+							</button>
+							<div class="content">
+								<p>
+									2.14.1 &nbsp;&nbsp;정적 파일 구조 정비<br />
+									2.14.2 &nbsp;&nbsp;강의실 이미지 연결 및 불러오기 방식 개선<br />
 								</p>
 							</div>
 						</div>
 					</div>
 
-					<!--이번꺼 추가하고 그 밑에 둘거-->
+					<div class="version-button version-button--static">
+						<div class="toggle-circle">
+							<img class="toggle-arrow" src="{% static 'img/introduce/introduce_arrow.png' %}">
+						</div>
+						<p class="big_version">3.0.0</p>
+					</div>
+					<div class="next-version-line" aria-hidden="true"></div>
+
 					<div class="version-button" id="final-version">
 						<div class="toggle-circle">
 							<img class="toggle-arrow" src="{% static 'img/introduce/introduce_arrow.png' %}">
@@ -440,5 +479,5 @@
 </div>
 
 <script src="{% static 'js/scroll.js' %}"></script>
-<script src="{% static 'js/toggle.js' %}"></script>
+<script src="{% static 'js/toggle.js' %}?v=8"></script>
 {% endblock %}
