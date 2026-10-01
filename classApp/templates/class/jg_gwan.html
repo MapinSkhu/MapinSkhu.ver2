@@ -45,7 +45,7 @@
               <b>간혹 건물 번호를 영어로 사용할 때가 있습니다.</b> <br />
               A = 승연관, B = 일만관, C = 월당관, EC or 5C = 나눔관, F =
               정보과학관, G = 새천년관,<br />
-              I = 피츠버그홀, M = 미가엘관
+              I = 성미가엘성당&피츠버그홀, M = 미가엘관
             </p>
             <p id="detail_mobile">
               <b
@@ -55,7 +55,7 @@
               <span>ex ) 6202 -> 6(정보과학관), 2층, 02 강의실</span> <br />
               <b>간혹 건물 번호를 영어로 사용할 때가 있습니다.</b><br />
               A = 승연관, B = 일만관, C = 월당관, EC or 5C = 나눔관, <br />
-              F = 정보과학관, G = 새천년관, I = 피츠버그홀, M = 미가엘관
+              F = 정보과학관, G = 새천년관, I = 성미가엘성당&피츠버그홀, M = 미가엘관
             </p>
           </div>
           <div
@@ -178,14 +178,11 @@
     </div>
 
     <div class="build-floor-container">
-      <div class="floorinfo">
+      <div class="floorinfo floorinfo--with-description">
         <h2>F3</h2>
+        <p>교수연구실이 있습니다.</p>
       </div>
-      <div class="lectureinfo-container">
-        <h1 style="font-size: 20px">
-          이 층은 공학계열 교수님 연구실이 있는 층입니다.
-        </h1>
-      </div>
+      <div class="lectureinfo-container lectureinfo-container--line-only"></div>
     </div>
 
     <div class="build-floor-container">
@@ -263,8 +260,9 @@
     </div>
 
     <div class="build-floor-container">
-      <div class="floorinfo">
+      <div class="floorinfo floorinfo--with-description">
         <h2>F6</h2>
+        <p>교수연구실이 있습니다.</p>
       </div>
       <div class="lectureinfo-container">
         {% for rooms in rooms_list %} {% if rooms.floor == 6 %}

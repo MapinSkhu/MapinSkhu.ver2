@@ -3,9 +3,23 @@ $('#switchInput[type=checkbox]').on('click', function(){
     var enableToggle = $('#enable_tog');
 
     if (enableToggle.length === 0) {
-        $('#all_tog .lectureinfo-box').each(function () {
-            var shouldShow = chkValue !== 'on' || $(this).is('[href]');
-            $(this).toggle(shouldShow);
+        var showAvailableOnly = chkValue === 'on';
+
+        $('#all_tog .build-floor-container').each(function () {
+            var floor = $(this);
+            var cards = floor.find('.lectureinfo-box');
+
+            cards.each(function () {
+                var card = $(this);
+                var isAvailableClassroom = card.find('.lecturecon.poss').length > 0;
+                card.toggle(!showAvailableOnly || isAvailableClassroom);
+            });
+
+            var hasAvailableClassroom = cards.filter(function () {
+                return $(this).find('.lecturecon.poss').length > 0;
+            }).length > 0;
+
+            floor.toggle(!showAvailableOnly || hasAvailableClassroom);
         });
         return;
     }
