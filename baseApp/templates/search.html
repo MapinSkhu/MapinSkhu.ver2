@@ -10,7 +10,7 @@
 	<div class="build-informwrap_search">
 		<div class="build-title-search" id="build-title_s">
 			<div></div>
-			<h1 style="color:#218b21;">{{q}}</h1>
+			<h1 style="color:#3CB371;">{{q}}</h1>
 			<h1 class="visible">의 검색 결과 </h1>
 		</div>
 	</div>
@@ -22,20 +22,33 @@
 			</div>
 
 			<div class="lectureinfo-container">
+				{% for item in floor_description_results %}
+				<div class="lectureinfo-box lectureinfo-box--floor-description">
+					<div class="lectureinfo">
+						<h1>{{ item.kwan_name }} {{ item.floor_label }}</h1>
+						<p>{{ item.description }}</p>
+					</div>
+				</div>
+				{% endfor %}
 				{% for room in roomsList %}
-				<a {% if not room.details %}href="{% url 'classroom' room.id %}"{% endif %} class="lectureinfo-box{% if room.details %} lectureinfo-box--non-classroom{% endif %}">
+					<a {% if room.is_search_classroom %}href="{% url 'classroom' room.id %}"{% endif %} class="lectureinfo-box{% if not room.is_search_classroom %} lectureinfo-box--non-classroom{% endif %}">
 					<div class="lecture-img" data-room="{{ room.room }}">
-						<img class="img-src" src="{% if room.details %}{% static 'images/classroom/nonImage.png' %}{% else %}{{ room.room_image.url }}{% endif %}" alt="{{room.room}}" />
-						{% if room.details %}<span class="non-classroom-name">{{ room.details }}</span>{% endif %}
+						<img class="img-src" src="{{ room.search_image_url }}" alt="{{room.room}}" />
+						{% if not room.is_search_classroom and room.details %}<span class="search-room-location{% if room.kwan_name == '성미가엘성당&피츠버그홀' %} search-room-location--wide{% endif %}"><span class="search-room-location-text">{{ room.kwan_name }} · {{ room.room }}</span></span>{% endif %}
+						{% if not room.is_search_classroom and room.details %}<span class="non-classroom-name">{{ room.details }}</span>{% endif %}
 					</div>
 					<div class="lectureinfo">
-						<h1>{{ room.room }}</h1>
-						{% if not room.details and room.room_type == '사용가능' %}
+						<h1>{{ room.display_name }}</h1>
+						{% if room.is_search_classroom and room.room_type == '사용가능' %}
 						<div class="lecturecon poss">
 							<span>{{ room.room_type }}</span>
 						</div>
-						{% elif not room.details %}
+						{% elif room.is_search_classroom and room.room_type == '수업중' %}
 						<div class="lecturecon imposs">
+							<span>{{ room.room_type }}</span>
+						</div>
+						{% elif room.is_search_classroom %}
+						<div class="lecturecon unopened">
 							<span>{{ room.room_type }}</span>
 						</div>
 						{% endif %}
@@ -48,7 +61,7 @@
 
 
 
-		<div class="build-floor-container">
+		<div class="build-floor-container search-course-results">
 			<div class="floorinfo" id="floorinfo_s">
 				<h2>강의명 검색결과</h2>
 			</div>
@@ -59,7 +72,7 @@
 				{% if room.room == classname.room1 %}
 				<a href="{% url 'classroom' room.id %}" class="lectureinfo-box">
 					<div class="lecture-img">
-						<img class="img-src" src="{{room.room_image.url}}" alt="{{room.room}}" />
+						<img class="img-src" src="{{ room.search_image_url }}" alt="{{room.room}}" />
 					</div>
 					<div class="lectureinfo_s">
 						<h2 style="align-items:first baseline; color: gray;">{{classname.room1}}</h2>
@@ -68,7 +81,7 @@
 				{% elif room.room == classname.room2 %}
 				<a href="{% url 'classroom' room.id %}" class="lectureinfo-box">
 					<div class="lecture-img">
-						<img class="img-src" src="{{room.room_image.url}}" alt="{{room.room}}" />
+						<img class="img-src" src="{{ room.search_image_url }}" alt="{{room.room}}" />
 					</div>
 					<div class="lectureinfo_s">
 						<h2 style="align-items:first baseline; color: gray;">{{classname.room2}}</h2>
@@ -85,7 +98,7 @@
 
 
 
-		<div class="build-floor-container">
+		<div class="build-floor-container search-course-results">
 			<div class="floorinfo" id="floorinfo_s">
 				<h2>교수님 강의 검색결과</h2>
 			</div>
@@ -96,7 +109,7 @@
 				{% if room.room == professor_class.room1 %}
 				<a href="{% url 'classroom' room.id %}" class="lectureinfo-box">
 					<div class="lecture-img">
-						<img class="img-src" src="{{room.room_image.url}}" alt="{{room.room}}" />
+						<img class="img-src" src="{{ room.search_image_url }}" alt="{{room.room}}" />
 					</div>
 
 					<div class="lectureinfo_s">
@@ -107,7 +120,7 @@
 				{% elif room.room == professor_class.room2 %}
 				<a href="{% url 'classroom' room.id %}" class="lectureinfo-box">
 					<div class="lecture-img">
-						<img class="img-src" src="{{room.room_image.url}}" alt="{{room.room}}" />
+						<img class="img-src" src="{{ room.search_image_url }}" alt="{{room.room}}" />
 					</div>
 
 					<div class="lectureinfo_s">

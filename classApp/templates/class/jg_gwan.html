@@ -45,7 +45,7 @@
               <b>간혹 건물 번호를 영어로 사용할 때가 있습니다.</b> <br />
               A = 승연관, B = 일만관, C = 월당관, EC or 5C = 나눔관, F =
               정보과학관, G = 새천년관,<br />
-              I = 피츠버그홀, M = 미가엘관
+              I = 성미가엘성당&피츠버그홀, M = 미가엘관
             </p>
             <p id="detail_mobile">
               <b
@@ -55,7 +55,7 @@
               <span>ex ) 6202 -> 6(정보과학관), 2층, 02 강의실</span> <br />
               <b>간혹 건물 번호를 영어로 사용할 때가 있습니다.</b><br />
               A = 승연관, B = 일만관, C = 월당관, EC or 5C = 나눔관, <br />
-              F = 정보과학관, G = 새천년관, I = 피츠버그홀, M = 미가엘관
+              F = 정보과학관, G = 새천년관, I = 성미가엘성당&피츠버그홀, M = 미가엘관
             </p>
           </div>
           <div
@@ -112,7 +112,7 @@
   <div class="lecture-img" data-room="{{ rooms.room }}">
     <img
       class="img-src"
-      src="{% if rooms.is_classroom %}{{ rooms.room_image.url }}{% else %}{% static 'images/classroom/nonImage.png' %}{% endif %}"
+              src="{{ rooms.card_image_url }}"
       alt="{{rooms.room}}"
     />
     {% if not rooms.is_classroom %}<span class="non-classroom-name">{{ rooms.details }}</span>{% endif %}
@@ -150,7 +150,7 @@
   <div class="lecture-img" data-room="{{ rooms.room }}">
     <img
       class="img-src"
-      src="{% if rooms.is_classroom %}{{ rooms.room_image.url }}{% else %}{% static 'images/classroom/nonImage.png' %}{% endif %}"
+              src="{{ rooms.card_image_url }}"
       alt="{{rooms.room}}"
     />
     {% if not rooms.is_classroom %}<span class="non-classroom-name">{{ rooms.details }}</span>{% endif %}
@@ -178,14 +178,11 @@
     </div>
 
     <div class="build-floor-container">
-      <div class="floorinfo">
+      <div class="floorinfo floorinfo--with-description">
         <h2>F3</h2>
+        <p>교수연구실이 있습니다.</p>
       </div>
-      <div class="lectureinfo-container">
-        <h1 style="font-size: 20px">
-          이 층은 공학계열 교수님 연구실이 있는 층입니다.
-        </h1>
-      </div>
+      <div class="lectureinfo-container lectureinfo-container--line-only"></div>
     </div>
 
     <div class="build-floor-container">
@@ -198,7 +195,7 @@
   <div class="lecture-img" data-room="{{ rooms.room }}">
     <img
       class="img-src"
-      src="{% if rooms.is_classroom %}{{ rooms.room_image.url }}{% else %}{% static 'images/classroom/nonImage.png' %}{% endif %}"
+              src="{{ rooms.card_image_url }}"
       alt="{{rooms.room}}"
     />
     {% if not rooms.is_classroom %}<span class="non-classroom-name">{{ rooms.details }}</span>{% endif %}
@@ -224,6 +221,82 @@
         {% endif %} {% endfor %}
       </div>
     </div>
+
+    <div class="build-floor-container">
+      <div class="floorinfo">
+        <h2>F5</h2>
+      </div>
+      <div class="lectureinfo-container">
+        {% for rooms in rooms_list %} {% if rooms.floor == 5 %}
+        <a {% if rooms.is_classroom and rooms.room_type != '미개방' %}href="{% url 'classroom' rooms.id %}"{% endif %} data-room="{{ rooms.room }}" class="lectureinfo-box{% if not rooms.is_classroom %} lectureinfo-box--non-classroom{% endif %}{% if rooms.room_type == '미개방' %} lectureinfo-box--unopened{% endif %}{% if rooms.is_image_missing %} lectureinfo-box--missing-image{% endif %}">
+  <div class="lecture-img" data-room="{{ rooms.room }}">
+    <img
+      class="img-src"
+              src="{{ rooms.card_image_url }}"
+      alt="{{rooms.room}}"
+    />
+    {% if not rooms.is_classroom %}<span class="non-classroom-name">{{ rooms.details }}</span>{% endif %}
+  </div>
+  <div class="lectureinfo">
+    <h1 class="lectureinfo-title" title="{{ rooms.room }}">{{ rooms.room }}</h1>
+
+    {% if rooms.is_classroom and rooms.room_type == '사용가능' %}
+    <div class="lecturecon poss">
+      <span>{{ rooms.room_type }}</span>
+    </div>
+    {% elif rooms.is_classroom and rooms.room_type == '수업중' %}
+    <div class="lecturecon imposs">
+      <span>{{ rooms.room_type }}</span>
+    </div>
+    {% elif rooms.is_classroom %}
+    <div class="lecturecon unopened">
+      <span>{{ rooms.room_type }}</span>
+    </div>
+    {% endif %}
+  </div>
+</a>
+        {% endif %} {% endfor %}
+      </div>
+    </div>
+
+    <div class="build-floor-container">
+      <div class="floorinfo floorinfo--with-description">
+        <h2>F6</h2>
+        <p>교수연구실이 있습니다.</p>
+      </div>
+      <div class="lectureinfo-container">
+        {% for rooms in rooms_list %} {% if rooms.floor == 6 %}
+        <a {% if rooms.is_classroom and rooms.room_type != '미개방' %}href="{% url 'classroom' rooms.id %}"{% endif %} data-room="{{ rooms.room }}" class="lectureinfo-box{% if not rooms.is_classroom %} lectureinfo-box--non-classroom{% endif %}{% if rooms.room_type == '미개방' %} lectureinfo-box--unopened{% endif %}{% if rooms.is_image_missing %} lectureinfo-box--missing-image{% endif %}">
+  <div class="lecture-img" data-room="{{ rooms.room }}">
+    <img
+      class="img-src"
+              src="{{ rooms.card_image_url }}"
+      alt="{{rooms.room}}"
+    />
+    {% if not rooms.is_classroom %}<span class="non-classroom-name">{{ rooms.details }}</span>{% endif %}
+  </div>
+  <div class="lectureinfo">
+    <h1 class="lectureinfo-title" title="{{ rooms.room }}">{{ rooms.room }}</h1>
+
+    {% if rooms.is_classroom and rooms.room_type == '사용가능' %}
+    <div class="lecturecon poss">
+      <span>{{ rooms.room_type }}</span>
+    </div>
+    {% elif rooms.is_classroom and rooms.room_type == '수업중' %}
+    <div class="lecturecon imposs">
+      <span>{{ rooms.room_type }}</span>
+    </div>
+    {% elif rooms.is_classroom %}
+    <div class="lecturecon unopened">
+      <span>{{ rooms.room_type }}</span>
+    </div>
+    {% endif %}
+  </div>
+</a>
+        {% endif %} {% endfor %}
+      </div>
+    </div>
+
   </div>
 
 </div>

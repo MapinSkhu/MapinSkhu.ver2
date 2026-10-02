@@ -1,34 +1,18 @@
 from django.shortcuts import render
-from django.conf import settings
 from django.utils import timezone
 from classApp.models import Room, Classes
 from django.db.models import Q
-from django.core.files.storage import FileSystemStorage
+from django.templatetags.static import static
+from classApp.views import get_static_room_image, room_names_match
+from classApp.room_overrides import (
+    FLOOR_DESCRIPTION_SEARCH_ITEMS,
+    is_room_hidden_on_building_page,
+)
 
 def base(request):
     return render(request, 'base.html')
 
 def index(request):
-    fs = FileSystemStorage(location=settings.BASE_DIR)
-    
-    rooms = Room.objects.all()
-
-    for r in rooms:
-        if r.room_image == None:
-            static_file_jpg = f'classApp/static/images/classroom/{r.room}.jpg'
-            if fs.exists(static_file_jpg):
-                with fs.open(static_file_jpg) as static_file:
-                    r.room_image.save(f'{r.room}.jpg', static_file, save=True)
-            if not fs.exists(static_file_jpg):
-                static_file_png = f'classApp/static/images/classroom/{r.room}.png'
-                if fs.exists(static_file_png):
-                    with fs.open(static_file_png) as static_file:
-                        r.room_image.save(f'{r.room}.png', static_file, save=True)
-                if not fs.exists(static_file_png):
-                    static_file_wait = f'classApp/static/images/classroom/imagewait.png'
-                    with fs.open(static_file_wait) as static_file:
-                        r.room_image.save(f'imagewait_{r.room}.JPG', static_file, save=True)
-
     return render(request, 'index.html')
 
 def introduce(request):
@@ -53,11 +37,49 @@ def search(request):
     classesList = []
     professorsList = []
 
-    roomsAll = Room.objects.all()
+    roomsAll = [
+        room for room in Room.objects.all()
+        if not is_room_hidden_on_building_page(room)
+    ]
     classesAll = Classes.objects.all()
-    professorsAll = Classes.objects.all()
+    class_room_names = set(classesAll.values_list('room1', flat=True)) | set(
+        classesAll.values_list('room2', flat=True)
+    )
+    for room in roomsAll:
+        room.is_search_classroom = (
+            not room.details
+            or (
+                room.kwan_name == '일만관'
+                and room.floor == 1
+                and 'B105' in room.room
+            )
+            or (
+                room.kwan_name == '새천년관'
+                and room.floor == 7
+                and room.room == '7706'
+            )
+            or (
+                room.kwan_name == '성미가엘성당&피츠버그홀'
+                and room.floor == 3
+                and room.room == '9301'
+            )
+        )
+        room.search_image_url = (
+            get_static_room_image(room.room)
+            or static(
+                'images/classroom/nonimage.webp'
+                if room.details
+                else 'images/classroom/imagewait.webp'
+            )
+        )
+        room.has_class = any(
+            room_names_match(room.room, class_room)
+            for class_room in class_room_names
+        )
+    professorsAll = classesAll
 
     rooms_result, classes_result, professors_result = "", "", ""
+    floor_description_results = []
 
     if q:
 
@@ -82,9 +104,15 @@ def search(request):
         # classes = output1
         
         
-        rooms = roomsAll.filter(
-            Q(room__icontains=q) | Q(details__icontains=q)
-        ).distinct()
+        query = q.casefold()
+        floor_description_results = [
+            item for item in FLOOR_DESCRIPTION_SEARCH_ITEMS
+            if query in item['description'].casefold()
+        ]
+        rooms = [
+            room for room in roomsAll
+            if query in room.room.casefold() or query in room.details.casefold()
+        ]
         professors = professorsAll.filter(Q(prof__icontains = q)).distinct()
         
         '''
@@ -123,19 +151,25 @@ def search(request):
 
 
         for r in rooms:
-            r.room_type = "사용가능"
+            r.room_type = (
+                "미개방"
+                if r.is_search_classroom and not r.has_class
+                else "사용가능"
+            )
 
             #date1에 대해
             for c in classesAll.filter(Q(date1 = now_weekday)):
                 if c.start <= now_time and now_time <= c.end:
-                    if (r.room == c.room1):
-                        r.room_type = "사용불가" 
-            roomsList.append(r)
+                    if room_names_match(r.room, c.room1):
+                        r.room_type = "수업중"
+                        break
             #date2에 대해
-            for c in classesAll.filter(Q(date2 = now_weekday)):
-                if c.start <= now_time and now_time <= c.end:
-                    if (r.room == c.room2):
-                        r.room_type = "사용불가" 
+            if r.room_type != "수업중":
+                for c in classesAll.filter(Q(date2 = now_weekday)):
+                    if c.start <= now_time and now_time <= c.end:
+                        if room_names_match(r.room, c.room2):
+                            r.room_type = "수업중"
+                            break
             roomsList.append(r)
 
         '''
@@ -151,7 +185,7 @@ def search(request):
         roomsList = list(roomsList)
 
 
-        if len(rooms) == 0:
+        if len(rooms) == 0 and len(floor_description_results) == 0:
             rooms_result = "강의실 검색 결과가 없습니다."
         
         if len(classes) == 0:
@@ -173,6 +207,7 @@ def search(request):
     'now_weekday': now_weekday,
     'roomsAll': roomsAll,
     'rooms': rooms, 'classes': classes, 'professors': professors,
+    'floor_description_results': floor_description_results,
     'roomsList': roomsList, 'classesList': classesList, 'professorsList': professorsList,
     'rooms_result': rooms_result, 'classes_result': classes_result, 'professors_result': professors_result,
     })

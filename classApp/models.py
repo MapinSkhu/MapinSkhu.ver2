@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.core.validators import MaxValueValidator, MinValueValidator
+from .room_overrides import ROOM_DISPLAY_NAMES
 
 
 class Classes(models.Model):
@@ -47,5 +48,11 @@ class Room(models.Model):
     ) 
     room_image = models.ImageField(upload_to='images/room', null=True, blank=True)
     room_type = models.CharField(max_length=100, null = True, blank=True)
+
+    @property
+    def display_name(self):
+        name = ROOM_DISPLAY_NAMES.get(self.room)
+        return f'{self.room}({name})' if name else self.room
+
     def __str__(self):
         return f'{self.room, self.room_type}'

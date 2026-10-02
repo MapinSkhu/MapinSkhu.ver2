@@ -67,7 +67,7 @@ function collapse(element) {
     // 현재 클릭한 toggle 버튼 아래에 위치한 content의 원래 길이만큼 드러내기
     content.style.maxHeight = content.scrollHeight + "px";
     content.style.borderTop = "none";
-    content.style.borderBottom = "solid 1px #bae688";
+    content.style.borderBottom = "solid 1px #D8FDD1";
     content.style.marginBottom = "0px";
 
     // 이전 toggle 버튼 존재하며 그 버튼이 현재 선택 버튼과 "다를" 때
@@ -88,7 +88,7 @@ function collapse(element) {
     // 현재 클릭한 toggle 버튼 아래에 위치한 content의 원래 길이만큼 드러내기
     content.style.maxHeight = content.scrollHeight + "px";
     content.style.borderTop = "none";
-    content.style.borderBottom = "solid 1px #bae688";
+    content.style.borderBottom = "solid 1px #D8FDD1";
     content.style.marginBottom = "0px";
 
     // 이전 toggle 버튼 존재하며 그 버튼이 현재 선택 버튼과 "같을" 때 = 같은 버튼 2번 클릭
